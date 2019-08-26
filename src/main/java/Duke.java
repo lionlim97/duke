@@ -34,8 +34,7 @@ public class Duke {
                 System.out.println();
                 System.out.println("Here are the tasks in your list:");
                 for(int i = 1; i <= list.size(); i++){
-                    System.out.println(i + ".[" + list.get(i-1).getStatusIcon()
-                            + "] " + list.get(i - 1).getDescription());
+                    System.out.println(i + "." + list.get(i-1).toString());
                 }
                 System.out.println();
             }
@@ -48,8 +47,33 @@ public class Duke {
                 }
                 System.out.println("Nice! I've marked this task as done:");
                 list.get(number-1).setDone(true);
-                System.out.println("[" + list.get(number-1).getStatusIcon() + "] "
-                        + list.get(number-1).getDescription());
+                System.out.println(list.get(number-1).toString());
+                System.out.println();
+            }
+            else if(command.equals("todo")){
+                input = sc.nextLine();
+                System.out.println("Got it. I've added this task:");
+                list.add(new Todo(input.trim()));
+                System.out.println(list.get(list.size()-1).toString());
+                System.out.println("Now you have " + list.size() +" tasks in the list.");
+                System.out.println();
+            }
+            else if(command.equals("deadline")){
+                input = sc.nextLine();
+                String[] arr = input.trim().split(" /by ");
+                System.out.println("Got it. I've added this task:");
+                list.add(new Deadline(arr[0],arr[1]));
+                System.out.println(list.get(list.size()-1).toString());
+                System.out.println("Now you have " + list.size() +" tasks in the list.");
+                System.out.println();
+            }
+            else if(command.equals("event")){
+                input = sc.nextLine();
+                String[] arr = input.trim().split(" /at ");
+                System.out.println("Got it. I've added this task:");
+                list.add(new Event(arr[0],arr[1]));
+                System.out.println(list.get(list.size()-1).toString());
+                System.out.println("Now you have " + list.size() +" tasks in the list.");
                 System.out.println();
             }
             else{
