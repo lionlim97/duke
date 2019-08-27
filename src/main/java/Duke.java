@@ -2,13 +2,7 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 public class Duke {
@@ -18,7 +12,7 @@ public class Duke {
     private static ArrayList<Task> list;
     private static File file;
 
-    public static void main(String[] args) throws FileNotFoundException, ParseException {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         list = new ArrayList<>();
         file = new File("C:\\Users\\Lionl\\OneDrive\\Computing\\2113T\\Week 2\\data\\duke.txt");
@@ -85,21 +79,12 @@ public class Duke {
                         if(input.trim().isEmpty()){
                             throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
                         }
-                        try{
-                            String[] arr = input.trim().split(" /by ");
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                            Date date = formatter.parse(arr[1]);
-                            System.out.println("Got it. I've added this task:");
-                            list.add(new Deadline(arr[0], date));
-                            System.out.println(list.get(list.size() - 1).toString());
-                            System.out.println("Now you have " + list.size() + " tasks in the list.");
-                            System.out.println();
-                        } catch (Exception e){
-                            System.out.printf("Please enter the deadline as follows:\n" +
-                                    "deadline name_of_activity /at dd/MM/yyyy HHmm\n" +
-                                    "For example: deadline return book /by 2/12/2019 1800\n\n");
-                            continue;
-                        }
+                        String[] arr = input.trim().split(" /by ");
+                        System.out.println("Got it. I've added this task:");
+                        list.add(new Deadline(arr[0], arr[1]));
+                        System.out.println(list.get(list.size() - 1).toString());
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        System.out.println();
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -109,20 +94,12 @@ public class Duke {
                         if (input.trim().isEmpty()) {
                             throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                         }
-                        try{
-                            String[] arr = input.trim().split(" /at ");
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                            Date date = formatter.parse(arr[1]);
-                            System.out.println("Got it. I've added this task:");
-                            list.add(new Event(arr[0], date));
-                            System.out.println(list.get(list.size() - 1).toString());
-                            System.out.println("Now you have " + list.size() + " tasks in the list.");
-                            System.out.println();
-                        } catch (Exception e){
-                            System.out.printf("Please enter the event time as follows:\n" +
-                                    "event name_of_event /at dd/MM/yyyy HHmm\n" +
-                                    "For example: event project meeting /at 1/1/2000 0600\n\n");
-                        }
+                        String[] arr = input.trim().split(" /at ");
+                        System.out.println("Got it. I've added this task:");
+                        list.add(new Event(arr[0], arr[1]));
+                        System.out.println(list.get(list.size() - 1).toString());
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        System.out.println();
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -136,7 +113,7 @@ public class Duke {
         }
     }
 
-    private static void readFile() throws ParseException {
+    private static void readFile() throws FileNotFoundException {
         ArrayList<String> temp;
         temp = new ArrayList<>();
         try {
@@ -154,15 +131,11 @@ public class Duke {
             if(string.contains("[T]")){
                 line = new Todo(string.substring(7));
             }
-            else if(string.contains("[D]")) {
-                DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
-                Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
-                line = new Deadline(string.substring(7, string.indexOf("by:") - 2), date);
+            else if(string.contains("[D]")){
+                line = new Deadline(string.substring(7, string.indexOf("by:")-2), string.substring(string.indexOf("by:") + 4, string.indexOf(')')));
             }
             else {
-                SimpleDateFormat format = new SimpleDateFormat("E MMM dd HH::mm::ss Z yyyy");
-                Date date = format.parse(string.substring(string.indexOf("at:") + 4, string.indexOf(')')));
-                line = new Event(string.substring(7, string.indexOf("at:")-2), date);
+                line = new Event(string.substring(7, string.indexOf("at:")-2), string.substring(string.indexOf("at:") + 4, string.indexOf(')')));
             }
             if(string.contains("\u2713")){
                 line.setDone(true);
