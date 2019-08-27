@@ -1,15 +1,21 @@
+import java.io.*;
+import java.lang.reflect.Array;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
 
-    private static String input, command, line;
+    private static String input, command;
     private static int number;
     private static ArrayList<Task> list;
+    private static File file;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         Scanner sc = new Scanner(System.in);
         list = new ArrayList<>();
+        file = new File("C:\\Users\\Lionl\\OneDrive\\Computing\\2113T\\Week 2\\data\\duke.txt");
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -21,8 +27,10 @@ public class Duke {
         System.out.println("Hello! I'm Duke");
         System.out.println("What can I do for you?");
         System.out.println();
+        readFile();
 
         while (true) {
+            updateFile();
             try {
                 command = sc.next();
                 if(command.trim().isEmpty()){
@@ -103,5 +111,44 @@ public class Duke {
                 System.out.println(e.getMessage());
             }
         }
+    }
+
+    private static void readFile() throws FileNotFoundException {
+        ArrayList<String> temp;
+        temp = new ArrayList<>();
+        try {
+            temp = new ArrayList<>(Files.readAllLines(Paths.get(String.valueOf(file))));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+        if(temp.isEmpty()) return;
+        for(String string : temp){
+            if(string.trim().isEmpty()) {
+                System.out.println("Error");
+                System.exit(5);
+            }
+            Task line;
+            if(string.contains("[T]")){
+                line = new Todo(string.substring(7));
+            }
+            else if(string.contains("[D]")){
+                line = new Deadline(string.substring(7, string.indexOf("by:")-2), string.substring(string.indexOf("by:") + 4, string.indexOf(')')));
+            }
+            else {
+                line = new Event(string.substring(7, string.indexOf("at:")-2), string.substring(string.indexOf("at:") + 4, string.indexOf(')')));
+            }
+            if(string.contains("\u2713")){
+                line.setDone(true);
+            }
+            list.add(line);
+        }
+    }
+
+    private static void updateFile() throws FileNotFoundException{
+        PrintWriter outputStream = new PrintWriter(file);
+        for(Task task : list){
+            outputStream.println(task.toString());
+        }
+        outputStream.close();
     }
 }
