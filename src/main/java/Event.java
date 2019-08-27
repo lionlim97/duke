@@ -1,8 +1,10 @@
+import java.util.Date;
+
 public class Event extends Task {
 
-    protected String by;
+    protected Date by;
 
-    public Event(String description, String by) {
+    public Event(String description, Date by) {
         super(description);
         this.by = by;
     }
