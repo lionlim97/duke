@@ -128,25 +128,6 @@ public class Duke {
                         System.out.println(e.getMessage());
                     }
                 }
-                else if (command.equals("delete")){
-                    try {
-                        number = sc.nextInt();
-                        if (number > list.size()) {
-                            System.out.println("Error, number entered is more than size of list");
-                            System.out.println();
-                            continue;
-                        }
-                        System.out.println("Noted. I've removed this task:");
-                        System.out.println(list.get(number - 1).toString());
-                        list.remove(number-1);
-                        System.out.println("Now you have " + list.size() + " tasks in the list.");
-                        System.out.println();
-                    } catch(Exception e){
-                        System.out.printf("Please enter the delete as follows:\n" +
-                                "delete number_on_list\n" +
-                                "For example: delete 2\n\n");
-                    }
-                }
                 else {
                     throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
