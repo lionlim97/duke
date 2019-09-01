@@ -29,7 +29,8 @@ public class Duke {
         System.out.println(logo);
         System.out.println();
         System.out.println("Hello! I'm Duke");
-        System.out.print("What can I do for you?\n\n");
+        System.out.println("What can I do for you?");
+        System.out.println();
         readFile();
 
         while (true) {
@@ -37,10 +38,11 @@ public class Duke {
             try {
                 command = sc.next();
                 if(command.trim().isEmpty()){
-                    throw new DukeException("\u2639" + " OOPS!!! Input is empty\n");
+                    throw new DukeException("\u2639" + " OOPS!!! Input is empty");
                 }
                 if (command.equals("bye")) {
                     System.out.println("Bye. Hope to see you again soon!");
+                    System.out.println();
                     break;
                 } else if (command.equals("list")) {
                     System.out.println("Here are the tasks in your list:");
@@ -52,7 +54,8 @@ public class Duke {
                     try {
                         number = sc.nextInt();
                         if (number > list.size()) {
-                            System.out.print("Error, number entered is more than size of list\n\n");
+                            System.out.println("Error, number entered is more than size of list");
+                            System.out.println();
                             continue;
                         }
                         System.out.println("Nice! I've marked this task as done:");
@@ -68,12 +71,13 @@ public class Duke {
                     try {
                         input = sc.nextLine();
                         if(input.trim().isEmpty()){
-                            throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.\n");
+                            throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
                         }
                         System.out.println("Got it. I've added this task:");
                         list.add(new Todo(input.trim()));
                         System.out.println(list.get(list.size() - 1).toString());
-                        System.out.print("Now you have " + list.size() + " tasks in the list.\n\n");
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        System.out.println();
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
@@ -81,7 +85,7 @@ public class Duke {
                     try {
                         input = sc.nextLine();
                         if(input.trim().isEmpty()){
-                            throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.\n");
+                            throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                         }
                         try{
                             String[] arr = input.trim().split(" /by ");
@@ -104,7 +108,7 @@ public class Duke {
                     try {
                         input = sc.nextLine();
                         if (input.trim().isEmpty()) {
-                            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.\n");
+                            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
                         }
                         try{
                             String[] arr = input.trim().split(" /at ");
@@ -113,7 +117,8 @@ public class Duke {
                             System.out.println("Got it. I've added this task:");
                             list.add(new Event(arr[0], date));
                             System.out.println(list.get(list.size() - 1).toString());
-                            System.out.print("Now you have " + list.size() + " tasks in the list.\n\n");
+                            System.out.println("Now you have " + list.size() + " tasks in the list.");
+                            System.out.println();
                         } catch (Exception e){
                             System.out.printf("Please enter the event time as follows:\n" +
                                     "event name_of_event /at dd/MM/yyyy HHmm\n" +
@@ -127,48 +132,23 @@ public class Duke {
                     try {
                         number = sc.nextInt();
                         if (number > list.size()) {
-                            System.out.print("Error, number entered is more than size of list\n\n");
+                            System.out.println("Error, number entered is more than size of list");
+                            System.out.println();
                             continue;
                         }
                         System.out.println("Noted. I've removed this task:");
                         System.out.println(list.get(number - 1).toString());
                         list.remove(number-1);
-                        System.out.print("Now you have " + list.size() + " tasks in the list.\n\n");
+                        System.out.println("Now you have " + list.size() + " tasks in the list.");
+                        System.out.println();
                     } catch(Exception e){
-                        System.out.print("Please enter the delete as follows:\n" +
+                        System.out.printf("Please enter the delete as follows:\n" +
                                 "delete number_on_list\n" +
                                 "For example: delete 2\n\n");
                     }
                 }
-                else if (command.equals("find")){
-                    try {
-                        input = sc.nextLine();
-                        ArrayList<Task> temp;
-                        temp = new ArrayList<>();
-                        for (Task task : list) {
-                            if (task.getDescription().contains(input)) {
-                                temp.add(task);
-                            }
-                        }
-                        if(temp.size() == 0){
-                            System.out.print("Sorry, there weren't any description matching your keyword.\n" +
-                                    "Please enter again.\n\n");
-                        }
-                        else {
-                            System.out.println("Here are the matching tasks in your list:");
-                            for (int i = 1; i <= temp.size(); i++) {
-                                System.out.println(i + "." + temp.get(i - 1).toString());
-                            }
-                            System.out.println();
-                        }
-                    } catch (Exception e){
-                        System.out.print("Please enter the find as follows:\n" +
-                                "find keyword\n" +
-                                "For example: find book\n\n");
-                    }
-                }
                 else {
-                    throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(\n");
+                    throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
