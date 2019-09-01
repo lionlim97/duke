@@ -54,9 +54,7 @@ public class Duke {
                     try {
                         number = sc.nextInt();
                         if (number > list.size()) {
-                            System.out.println("Error, number entered is more than size of list");
-                            System.out.println();
-                            continue;
+                            throw new DukeException("number entered is more than size of list\n");
                         }
                         System.out.println("Nice! I've marked this task as done:");
                         list.get(number - 1).setDone(true);
@@ -71,7 +69,7 @@ public class Duke {
                     try {
                         input = sc.nextLine();
                         if(input.trim().isEmpty()){
-                            throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
+                            throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.\n");
                         }
                         System.out.println("Got it. I've added this task:");
                         list.add(new Todo(input.trim()));
@@ -85,7 +83,7 @@ public class Duke {
                     try {
                         input = sc.nextLine();
                         if(input.trim().isEmpty()){
-                            throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
+                            throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.\n");
                         }
                         try{
                             String[] arr = input.trim().split(" /by ");
@@ -108,7 +106,7 @@ public class Duke {
                     try {
                         input = sc.nextLine();
                         if (input.trim().isEmpty()) {
-                            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.");
+                            throw new DukeException("☹ OOPS!!! The description of an event cannot be empty.\n");
                         }
                         try{
                             String[] arr = input.trim().split(" /at ");
@@ -128,8 +126,24 @@ public class Duke {
                         System.out.println(e.getMessage());
                     }
                 }
+                else if (command.equals("delete")){
+                    try {
+                        number = sc.nextInt();
+                        if (number > list.size()) {
+                            throw new DukeException("number entered is more than size of list\n");
+                        }
+                        System.out.println("Noted. I've removed this task:");
+                        System.out.println(list.get(number - 1).toString());
+                        list.remove(number-1);
+                        System.out.print("Now you have " + list.size() + " tasks in the list.\n\n");
+                    } catch(Exception e){
+                        System.out.printf("Please enter the delete as follows:\n" +
+                                "delete number_on_list\n" +
+                                "For example: delete 2\n\n");
+                    }
+                }
                 else {
-                    throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(\n");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
