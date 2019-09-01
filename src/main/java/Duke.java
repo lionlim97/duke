@@ -16,9 +16,10 @@ public class Duke {
     private static File file;
 
     public static void main(String[] args) throws FileNotFoundException, ParseException {
+        String workingDir = System.getProperty("user.dir");
         Scanner sc = new Scanner(System.in);
         list = new ArrayList<>();
-        file = new File("C:\\Users\\Lionl\\OneDrive\\Computing\\2113T\\Week 2\\data\\duke.txt");
+        file = new File(workingDir + "\\data\\duke.txt");
 
         String logo = " ____        _        \n"
                 + "|  _ \\ _   _| | _____ \n"
@@ -37,36 +38,40 @@ public class Duke {
             try {
                 command = sc.next();
                 if(command.trim().isEmpty()){
-                    throw new DukeException("☹ OOPS!!! Input is empty");
+                    throw new DukeException("\u2639" + " OOPS!!! Input is empty");
                 }
                 if (command.equals("bye")) {
-                    System.out.println();
                     System.out.println("Bye. Hope to see you again soon!");
                     System.out.println();
                     break;
                 } else if (command.equals("list")) {
-                    System.out.println();
                     System.out.println("Here are the tasks in your list:");
                     for (int i = 1; i <= list.size(); i++) {
                         System.out.println(i + "." + list.get(i - 1).toString());
                     }
                     System.out.println();
                 } else if (command.equals("done")) {
-                    number = sc.nextInt();
-                    if (number > list.size()) {
-                        System.out.println("Error, number entered is more than size of list");
+                    try {
+                        number = sc.nextInt();
+                        if (number > list.size()) {
+                            System.out.println("Error, number entered is more than size of list");
+                            System.out.println();
+                            continue;
+                        }
+                        System.out.println("Nice! I've marked this task as done:");
+                        list.get(number - 1).setDone(true);
+                        System.out.println(list.get(number - 1).toString());
                         System.out.println();
-                        continue;
+                    } catch(Exception e){
+                        System.out.printf("Please enter the todo as follows:\n" +
+                                "done number_on_list\n" +
+                                "For example: done 2\n\n");
                     }
-                    System.out.println("Nice! I've marked this task as done:");
-                    list.get(number - 1).setDone(true);
-                    System.out.println(list.get(number - 1).toString());
-                    System.out.println();
                 } else if (command.equals("todo")) {
                     try {
                         input = sc.nextLine();
                         if(input.trim().isEmpty()){
-                            throw new DukeException("☹ OOPS!!! The description of a todo cannot be empty.");
+                            throw new DukeException("\u2639" + " OOPS!!! The description of a todo cannot be empty.");
                         }
                         System.out.println("Got it. I've added this task:");
                         list.add(new Todo(input.trim()));
@@ -80,7 +85,7 @@ public class Duke {
                     try {
                         input = sc.nextLine();
                         if(input.trim().isEmpty()){
-                            throw new DukeException("☹ OOPS!!! The description of a deadline cannot be empty.");
+                            throw new DukeException("\u2639" + " OOPS!!! The description of a deadline cannot be empty.");
                         }
                         try{
                             String[] arr = input.trim().split(" /by ");
@@ -142,35 +147,8 @@ public class Duke {
                                 "For example: delete 2\n\n");
                     }
                 }
-                else if (command.equals("find")){
-                    try {
-                        input = sc.nextLine();
-                        ArrayList<Task> temp;
-                        temp = new ArrayList<>();
-                        for (Task task : list) {
-                            if (task.getDescription().contains(input)) {
-                                temp.add(task);
-                            }
-                        }
-                        if(temp.size() == 0){
-                            System.out.print("Sorry, there weren't any description matching your keyword.\n" +
-                                    "Please enter again.\n\n");
-                        }
-                        else {
-                            System.out.println("Here are the matching tasks in your list:");
-                            for (int i = 1; i <= temp.size(); i++) {
-                                System.out.println(i + "." + temp.get(i - 1).toString());
-                            }
-                            System.out.println();
-                        }
-                    } catch (Exception e){
-                        System.out.print("Please enter the find as follows:\n" +
-                                "find keyword\n" +
-                                "For example: find book\n\n");
-                    }
-                }
                 else {
-                    throw new DukeException("☹ OOPS!!! I'm sorry, but I don't know what that means :-(");
+                    throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
