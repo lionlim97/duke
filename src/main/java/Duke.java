@@ -99,6 +99,7 @@ public class Duke {
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
                     }
+
                 } else if (command.equals("event")) {
                     try {
                         input = sc.nextLine();
@@ -121,6 +122,33 @@ public class Duke {
                         }
                     } catch (DukeException e) {
                         System.out.println(e.getMessage());
+                    }
+                }
+                else if (command.equals("find")){
+                    try {
+                        input = sc.nextLine();
+                        ArrayList<Task> temp;
+                        temp = new ArrayList<>();
+                        for (Task task : list) {
+                            if (task.getDescription().contains(input)) {
+                                temp.add(task);
+                            }
+                        }
+                        if(temp.size() == 0){
+                            System.out.print("Sorry, there weren't any description matching your keyword.\n" +
+                                    "Please enter again.\n\n");
+                        }
+                        else {
+                            System.out.println("Here are the matching tasks in your list:");
+                            for (int i = 1; i <= temp.size(); i++) {
+                                System.out.println(i + "." + temp.get(i - 1).toString());
+                            }
+                            System.out.println();
+                        }
+                    } catch (Exception e){
+                        System.out.print("Please enter the find as follows:\n" +
+                                "find keyword\n" +
+                                "For example: find book\n\n");
                     }
                 }
                 else {
