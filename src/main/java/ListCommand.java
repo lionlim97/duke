@@ -1,7 +1,7 @@
 public class ListCommand extends Command {
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws Exception {
-        ui.showList(list);
+    public String execute(TaskList list, Ui ui, Storage storage) throws Exception {
+        return ui.showList(list);
     }
 
     @Override

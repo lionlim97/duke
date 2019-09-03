@@ -1,4 +1,4 @@
-[T][✓] read book
-[E][✘] project meeting (at: Mon Dec 02 19:00:00 SGT 2019)
-[D][✘] return book (by: Mon Dec 02 18:00:00 SGT 2019)
-[T][✘] read book
+[T][?] read book
+[E][?] project meeting (at: Mon Dec 02 19:00:00 SGT 2019)
+[D][?] return book (by: Mon Dec 02 18:00:00 SGT 2019)
+[T][?] read book

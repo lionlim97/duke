@@ -1,88 +1,67 @@
-import java.util.ArrayList;
-import java.util.Scanner;
-
 public class Ui {
     protected String logo = " ____        _        \n"
             + "|  _ \\ _   _| | _____ \n"
             + "| | | | | | | |/ / _ \\\n"
             + "| |_| | |_| |   <  __/\n"
             + "|____/ \\__,_|_|\\_\\___|\n";
-    protected String welcomeMessage = "    Hello! I'm Duke\n"
-            + "    What can I do for you?";
-    protected String byeMessage = "    Bye. Hope to see you again soon!";
-    protected String line = "    ____________________________________________________________";
-//    Scanner sc;
+    protected String welcomeMessage = "Hello! I'm Duke\n"
+            + "What can I do for you?\n";
+    protected String byeMessage = "Bye. Hope to see you again soon!\n";
+    protected String line = "____________________________________________________________\n";
 
     public Ui(){
-//        sc = new Scanner(System.in);
+        //...
     }
 
-/*    public String readCommand(){
-        return this.sc.nextLine();
-    }*/
-
-    public void showWelcome(){
-        System.out.println("Hello from\n");
-        System.out.println(logo);
-        showLine();
-        System.out.println(welcomeMessage);
-        showLine();
+    public String showWelcome(){
+        return "Hello from\n" + logo + welcomeMessage;
     }
 
-    public void showBye(){
-        System.out.println(byeMessage);
-        showLine();
+    public String showBye(){
+        return byeMessage;
     }
 
-    public void showList(TaskList list){
-        System.out.println("     Here are the tasks in your list:");
+    public String showList(TaskList list){
+        String listMessage = "Here are the tasks in your list:\n";
         for (int i = 1; i <= list.taskListSize(); i++) {
-            System.out.println("     " + i + "." + list.taskToString(i-1));
+            listMessage = listMessage + i + "." + list.taskToString(i-1) + "\n";
         }
-        showLine();
+        return listMessage;
     }
 
-    public void showAdd(Task task, int listSize){
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("     " + task.toString());
-        System.out.println("     Now you have " + listSize + (listSize > 1 ? " tasks in the list." : " task in the list."));
-        showLine();
+    public String showAdd(Task task, int listSize){
+        return "Got it. I've added this task:\n" + task.toString() + "\n"
+                + "Now you have " + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
-    public void showDone(Task task){
-        System.out.println("     Nice! I've marked this task as done:");
-        System.out.println("     " + task.toString());
-        showLine();
+    public String showDone(Task task){
+        return "Nice! I've marked this task as done:\n" + task.toString() + "\n";
     }
 
-    public void showDelete(Task task, int listSize){
-        System.out.println("     Noted. I've removed this task:");
-        System.out.println("     " + task.toString());
-        System.out.println("     Now you have " + listSize + (listSize > 1 ? " tasks in the list." : " task in the list."));
-        showLine();
+    public String showDelete(Task task, int listSize){
+        return "Noted. I've removed this task:\n" + task.toString() + "\n" + "Now you have "
+                + listSize + (listSize > 1 ? " tasks in the list.\n" : " task in the list.\n");
     }
 
-    public void showFind(TaskList list){
+    public String showFind(TaskList list){
         if(list.taskListSize() == 0) {
-            System.out.println("     There are no matching tasks in your list");
+            return "There are no matching tasks in your list\n";
         }
         else {
-            System.out.println("     Here are the matching tasks in your list:");
+            String findMessage = "Here are the matching tasks in your list:\n";
             for (int i = 1; i <= list.taskListSize(); i++) {
-                System.out.println("     " + i + "." + list.taskToString(i - 1));
+                findMessage = findMessage + i + "." + list.taskToString(i - 1) + "\n";
             }
+            return findMessage;
         }
-        showLine();
     }
 
-    public void showLoadingError(Exception e){
-        System.out.println("     File not found" + e.getMessage());
-        showLine();
+    public String showLoadingError(Exception e){
+        return "File not found" + e.getMessage() + "\n";
     }
 
-    public void showError(DukeException e){
-        System.out.println(e.getMessage());
-        showLine();
+    public String showError(DukeException e){
+        return e.getMessage() + "\n";
     }
 
     public void showLine(){

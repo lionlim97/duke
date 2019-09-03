@@ -7,8 +7,8 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws Exception {
-        ui.showFind(list.findTask(key));
+    public String execute(TaskList list, Ui ui, Storage storage) throws Exception {
+        return ui.showFind(list.findTask(key));
     }
 
     @Override

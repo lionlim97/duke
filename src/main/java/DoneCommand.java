@@ -8,10 +8,10 @@ public class DoneCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws DukeException {
         if(index >= 0 && index < list.taskListSize()) {
             list.markAsDone(index);
-            ui.showDone(list.getTask(index));
+            return ui.showDone(list.getTask(index));
         } else throw new DukeException("     \u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(");
     }
 

@@ -18,7 +18,7 @@ public class Storage {
 
     public void updateFile(TaskList list) throws FileNotFoundException {
         PrintWriter outputStream = new PrintWriter(filePath);
-        String textUiFilePath = System.getProperty("user.dir") + "\\data\\duke.txt";
+        String textUiFilePath = System.getProperty("user.dir") + "\\text-ui-test\\data\\duke.txt";
         PrintWriter outputStreamTextUi = new PrintWriter(textUiFilePath);
         ArrayList<Task> temp = list.getList();
         for(Task task : temp){
