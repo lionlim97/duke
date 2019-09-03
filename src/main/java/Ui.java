@@ -11,15 +11,15 @@ public class Ui {
             + "    What can I do for you?";
     protected String byeMessage = "    Bye. Hope to see you again soon!";
     protected String line = "    ____________________________________________________________";
-    Scanner sc;
+//    Scanner sc;
 
     public Ui(){
-        sc = new Scanner(System.in);
+//        sc = new Scanner(System.in);
     }
 
-    public String readCommand(){
+/*    public String readCommand(){
         return this.sc.nextLine();
-    }
+    }*/
 
     public void showWelcome(){
         System.out.println("Hello from\n");
