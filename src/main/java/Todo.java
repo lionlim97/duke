@@ -1,10 +1,10 @@
 /**
- * Represents a task called todo.
+ * Represents a task called to-do.
  */
 public class Todo extends Task {
 
     /**
-     * Creates a Todo object.
+     * Creates a To-do object.
      * @param description Description of a task
      */
     public Todo(String description) {
@@ -12,8 +12,8 @@ public class Todo extends Task {
     }
 
     /**
-     * Converts the Todo object to a string.
-     * @return This returns the string of the Todo object
+     * Converts the To-do object to a string.
+     * @return This returns the string of the To-do object
      */
     @Override
     public String toString() {
