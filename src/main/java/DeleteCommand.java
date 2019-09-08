@@ -29,13 +29,4 @@ public class DeleteCommand extends Command {
             return ui.showDelete(task, list.taskListSize());
         } else throw new DukeException("\u2639" + " OOPS!!! I'm sorry, but we cannot find the input task number :-(\n");
     }
-
-    /**
-     * To indicate the exit of the program.
-     * @return This returns false since this command does not indicate end of program
-     */
-    @Override
-    public boolean isExit() {
-        return false;
-    }
 }
