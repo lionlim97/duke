@@ -54,11 +54,12 @@ public class Parser {
                     arr = activity.split("/at");
                     if (arr[0].trim().isEmpty()) {
                         throw new DukeException("\u2639" + " OOPS!!! The description of a event cannot be empty.");
-                    } else {
-                        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
-                        Date date = formatter.parse(arr[1].trim());
-                        return new AddCommand(new Event(arr[0].trim(), date));
                     }
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
+                    Date date = formatter.parse(arr[1].trim());
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    String dateString = dateFormat.format(date);
+                    return new AddCommand(new Event(arr[0].trim(), dateString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException("OOPS!!! Please enter event as follows:\n" +
                             "event name_of_event /at dd/MM/yyyy HHmm\n" +
@@ -87,7 +88,9 @@ public class Parser {
                     }
                     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HHmm");
                     Date date = formatter.parse(arr[1].trim());
-                    return new AddCommand(new Deadline(arr[0].trim(), date));
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
+                    String dateString = dateFormat.format(date);
+                    return new AddCommand(new Deadline(arr[0].trim(), dateString));
                 } catch (ParseException | ArrayIndexOutOfBoundsException e) {
                     throw new DukeException(" OOPS!!! Please enter deadline as follows:\n" +
                             "deadline name_of_activity /by dd/MM/yyyy HHmm\n" +

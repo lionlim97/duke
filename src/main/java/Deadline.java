@@ -2,9 +2,9 @@ import java.util.Date;
 
 public class Deadline extends Task {
 
-    protected Date by;
+    protected String by;
 
-    public Deadline(String description, Date by) {
+    public Deadline(String description, String by) {
         super(description);
         this.by = by;
     }

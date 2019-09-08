@@ -46,14 +46,16 @@ public class Storage {
             line = new Todo(string.substring(7));
         }
         else if(string.contains("[D]")) {
-            DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+            DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("by:") + 4, string.indexOf(')')).trim());
-            line = new Deadline(string.substring(7, string.indexOf("by:") - 2), date);
+            String dateString = format.format(date);
+            line = new Deadline(string.substring(7, string.indexOf("by:") - 2), dateString);
         }
         else {
-            DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss Z yyyy");
+            DateFormat format = new SimpleDateFormat("E dd/MM/yyyy hh:mm a");
             Date date = format.parse(string.substring(string.indexOf("at:") + 4, string.indexOf(')')));
-            line = new Event(string.substring(7, string.indexOf("at:")-2), date);
+            String dateString = format.format(date);
+            line = new Event(string.substring(7, string.indexOf("at:")-2), dateString);
         }
         if(string.contains("\u2713")){
             line.setDone(true);
