@@ -28,9 +28,6 @@ public class MainWindow extends AnchorPane {
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
     private Ui ui = new Ui();
 
-    /**
-     * This method initializes the display in the window of the GUI.
-     */
     @FXML
     public void initialize() {
 
@@ -38,17 +35,10 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getDukeDialog(ui.showWelcome(), dukeImage));
     }
 
-    /**
-     * This method creates the Duke object.
-     * @param d The object of Duke
-     */
     public void setDuke(Duke d) {
         duke = d;
     }
 
-    /**
-     * This method handles all user's input to the program.
-     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
