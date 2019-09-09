@@ -12,7 +12,6 @@ public class Event extends Task {
      * @param description Description of a task
      * @param by Date of when a task is on
      */
-    public Event(String description, Date by) {
     public Event(String description, String by) {
         super(description);
         this.by = by;
