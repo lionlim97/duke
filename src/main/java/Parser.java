@@ -2,19 +2,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * Deals with the input of the user and tries to understand the
- * user's input with fixed commands.
- */
 public class Parser {
     private static String[] arr;
-
-    /**
-     * This method breaks apart the user's input and tries to make sense with it.
-     * @param fullCommand The user's input
-     * @return This returns a Command object based on user's input
-     * @throws DukeException On invalid input or when wrong input format is entered
-     */
     public static Command parse(String fullCommand) throws DukeException {
         try {
             if (fullCommand.trim().equals("bye")) {
